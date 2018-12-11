@@ -126,6 +126,7 @@ Medium = {
     // 547. Friend Circles
     findCircleNum: function (M) {
         var rows = M.length;
+        var cols = M[0].length;
         var ret = 0;
 
         var clearFriends = function (M, i) {
@@ -200,6 +201,25 @@ Medium = {
         console.log(T);
         console.log(ret);
 
+        return ret;
+    },
+   
+    // 950. Reveal Cards In Increasing Order  
+    deckRevealedIncreasing : function(deck) {
+        var ret = [];
+        deck.sort(function(a, b){
+            return b - a;
+        });        
+
+        for(var i=0;i<deck.length;i++){
+            if(ret.length > 1){
+                var tail = ret[ret.length-1];
+                ret.pop();
+                ret.unshift(tail);    
+            }
+            ret.unshift(deck[i]);
+        }
+        
         return ret;
     }
 }
