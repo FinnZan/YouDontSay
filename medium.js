@@ -126,23 +126,28 @@ Medium = {
     // 547. Friend Circles
     findCircleNum: function (M) {
         var rows = M.length;
-        var cols = M[0].length;
         var ret = 0;
 
-        var clearFriends = function (M, x, y) {
+        var clearFriends = function (M, i) {
+            var hasFriend = false;
             for (var j = 0; j < cols; j++) {
-                if (x != j && M[x][j] == 1) {
-                    M[x, j] = 0;
-                    clearFriends(M, j);
+                if (M[i][j] == 1) {
+                    hasFriend = true;
+                    M[i][j] = 0;
+                    M[j][i] = 0;
+                    if (i != j) {
+                        clearFriends(M, j);
+                    }
                 }
             }
+            return hasFriend;
         }
 
-        for (var i = 0; i < rows; i++) {            
-            for (var j = 0; j < cols; j++) {
-                if (i != j) {
-                    clearFriends(M, i, j);
-                }
+        var ret = 0;
+
+        for (var i = 0; i < rows; i++) {
+            if(clearFriends(M, i)){
+                ret++;
             }
         }
 
