@@ -147,7 +147,7 @@ Medium = {
         var ret = 0;
 
         for (var i = 0; i < rows; i++) {
-            if(clearFriends(M, i)){
+            if (clearFriends(M, i)) {
                 ret++;
             }
         }
@@ -203,23 +203,48 @@ Medium = {
 
         return ret;
     },
-   
-    // 950. Reveal Cards In Increasing Order  
-    deckRevealedIncreasing : function(deck) {
-        var ret = [];
-        deck.sort(function(a, b){
-            return b - a;
-        });        
 
-        for(var i=0;i<deck.length;i++){
-            if(ret.length > 1){
-                var tail = ret[ret.length-1];
+    // 950. Reveal Cards In Increasing Order  
+    deckRevealedIncreasing: function (deck) {
+        var ret = [];
+        deck.sort(function (a, b) {
+            return b - a;
+        });
+
+        for (var i = 0; i < deck.length; i++) {
+            if (ret.length > 1) {
+                var tail = ret[ret.length - 1];
                 ret.pop();
-                ret.unshift(tail);    
+                ret.unshift(tail);
             }
             ret.unshift(deck[i]);
         }
-        
+
         return ret;
+    },
+
+    // 951. Flip Equivalent Binary 
+    flipEquiv: function (root1, root2) {
+        var func = function (root1, root2) {
+            if (root1 != null && root2 != null) {
+                if (root1.val == root2.val) {
+                    if ((func(root1.left, root2.left) && func(root1.right, root2.right))) {
+                        return true;
+                    } else if ((func(root1.left, root2.right) && func(root1.right, root2.left))) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            }
+            else {
+                return root1 == root2;
+            }
+        }
+
+        return func(root1, root2);
     }
 }
