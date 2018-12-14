@@ -246,5 +246,20 @@ Medium = {
         }
 
         return func(root1, root2);
-    }
+    },
+
+    //442. Find All Duplicates in an Array
+    findDuplicates: function (nums) {
+        var obj = {};
+        var ret = [];
+        for (var i = 0; i < nums.length; i++) {            
+            if (obj[nums[i]] == undefined) {
+                obj[nums[i]] = 1;
+            } else {
+                ret.push(nums[i]);
+            }
+        }
+
+        return ret;
+    },
 }
