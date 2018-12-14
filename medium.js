@@ -122,7 +122,6 @@ Medium = {
         return stack.length;
     },
 
-    // TODO
     // 547. Friend Circles
     findCircleNum: function (M) {
         var rows = M.length;
