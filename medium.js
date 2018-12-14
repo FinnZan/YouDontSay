@@ -252,7 +252,7 @@ Medium = {
     findDuplicates: function (nums) {
         var obj = {};
         var ret = [];
-        for (var i = 0; i < nums.length; i++) {            
+        for (var i = 0; i < nums.length; i++) {
             if (obj[nums[i]] == undefined) {
                 obj[nums[i]] = 1;
             } else {
@@ -261,5 +261,29 @@ Medium = {
         }
 
         return ret;
+    },
+
+    // 513. Find Bottom Left Tree Value
+    findBottomLeftValue: function (root) {
+        var ret = {};
+        ret.pos = -1;
+        ret.level = -1;
+        ret.val = null;
+
+        var goDown = function (r, level, pos) {
+            if (r != null) {
+                if (level > ret.level || (level == ret.level && pos > ret.pos)) {
+                    ret.pos = pos;
+                    ret.level = level;
+                    ret.val = r.val
+                }
+                goDown(r.left, level + 1, pos + 2);
+                goDown(r.right, level + 1, pos + 1);
+            }
+        }
+
+        goDown(root, 0, 0);
+
+        return ret.val;
     },
 }
