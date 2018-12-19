@@ -285,4 +285,35 @@ Medium = {
 
         return ret.val;
     },
+
+    // 946. Validate Stack Sequences
+    validateStackSequences: function (pushed, popped) {
+        var stack = [];
+        var i = 0; // push index
+        var j = 0; // pop index
+
+        while (i < pushed.length || stack.length > 0) {
+            var keepOn = false;
+
+            if (i < pushed.length) {
+                stack.push(pushed[i]);
+                //console.log("push [" + toPush[0] + "]");
+                i++;
+                keepOn = true;
+            }
+
+            while (stack.length > 0 && (stack[stack.length - 1] == popped[j])) {
+                var p = stack.pop();
+                j++;
+                keepOn = true;
+                //console.log("pop [" + p + "]");
+            }
+
+            if (!keepOn) {
+                break;
+            }
+        }
+
+        return stack.length == 0;
+    },
 }
