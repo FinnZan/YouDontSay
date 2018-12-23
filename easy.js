@@ -138,3 +138,18 @@ var isToeplitzMatrix = function (matrix) {
 
     return true;
 };
+
+// 121. Best Time to Buy and Sell Stock
+maxProfit = function (prices) {
+    var highDay = -1;
+    var maxProfit = 0;
+    for (var i = 0; i < prices.length; i++) {
+        for (var j = Math.max(i+1, highDay); j < prices.length; j++) {
+            if ((prices[j] - prices[i]) > maxProfit) {
+                maxProfit = prices[j] - prices[i];
+                highDay = j;
+            }
+        }
+    }
+    return maxProfit;
+};
