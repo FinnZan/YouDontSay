@@ -144,7 +144,7 @@ maxProfit = function (prices) {
     var highDay = -1;
     var maxProfit = 0;
     for (var i = 0; i < prices.length; i++) {
-        for (var j = Math.max(i+1, highDay); j < prices.length; j++) {
+        for (var j = Math.max(i + 1, highDay); j < prices.length; j++) {
             if ((prices[j] - prices[i]) > maxProfit) {
                 maxProfit = prices[j] - prices[i];
                 highDay = j;
@@ -152,4 +152,47 @@ maxProfit = function (prices) {
         }
     }
     return maxProfit;
+};
+
+// 746. Min Cost Climbing Stairs
+minCostClimbingStairs = function (cost) {
+    var N = cost.length;
+    var paid = [];
+
+    var getCost = function (j) {
+        if (j >= 0 && j < N) {
+            return paid[j];
+        } else {
+            return 0;
+        }
+    }
+
+    for (var i = 0; i < N; i++) {
+        var c1 = getCost(i - 1);
+        var c2 = getCost(i - 2);
+        paid[i] = cost[i] + Math.min(c1, c2);
+    }
+
+    return Math.min(paid[N - 1], paid[N - 2]);
+};
+
+// 	Time Limit Exceeded
+minCostClimbingStairsRecursive = function (cost) {
+    var minCost = 100000000;
+
+    var climb = function (i, paid) {
+        if (i < cost.length) {
+            if (i != -1) {
+                paid += cost[i];
+            }
+            climb(i + 1, paid);
+            climb(i + 2, paid);
+        } else {
+            minCost = Math.min(minCost, paid);
+        }
+    }
+
+    climb(-1, 0);
+
+    return minCost;
 };
