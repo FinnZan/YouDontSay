@@ -316,4 +316,21 @@ Medium = {
 
         return stack.length == 0;
     },
+
+    // 338. Counting Bits
+    countBits: function (num) {
+        var ret = [];
+        for (var i = 0; i <= num; i++) {
+            var d = i;
+            ret[i] = 0;
+            while (d > 0) {
+                if (d & 1) {
+                    ret[i]++;
+                }
+                d = d >> 1;
+            }
+        }
+
+        return ret;
+    },
 }
