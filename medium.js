@@ -333,4 +333,46 @@ Medium = {
 
         return ret;
     },
+
+    // 931. Minimum Falling Path Sum
+    minFallingPathSum: function (A) {
+        var M = A.length;
+        var N = A[0].length;
+
+        var cache = [];
+        var min = 99999999999999999;
+
+        for (var i = 0; i < N; i++) {
+            cache[i] = [];
+        }
+
+        var go = function (m, n, sum) {
+            if (m >= 0 && m < M) {
+                var v = sum + A[n][m];
+                if (cache[n][m] != undefined) {
+                    if (v < cache[n][m]) {
+                        cache[n][m] = v;
+                    } else {
+                        return;
+                    }
+                } else {
+                    cache[n][m] = v;
+                }
+
+                if (n == N - 1) {
+                    min = Math.min(min, v);
+                } else {
+                    go(m + 1, n + 1, v)
+                    go(m - 1, n + 1, v);
+                    go(m, n + 1, v);
+                }
+            }
+        }
+
+        for (var i = 0; i < M; i++) {
+            go(i, 0, 0);
+        }
+
+        return min;
+    },
 }
