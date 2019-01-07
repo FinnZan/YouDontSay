@@ -375,4 +375,28 @@ Medium = {
 
         return min;
     },
+
+    // 647. Palindromic Substrings    
+    countSubstrings: function (s) {
+        var verify = function (start, end) {
+            for (var i = 0; i <= (end - start); i++) {
+                if (s[start + i] != s[end - i]) {
+                    return false;
+                }
+            }            
+            return true;
+        }
+
+        var count = 0;
+
+        for (var i = 0; i < s.length; i++) {
+            for (var j = i; j < s.length; j++) {
+                if (verify(i, j)) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
 }
