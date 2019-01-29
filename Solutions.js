@@ -2,7 +2,12 @@ require("./TreeNode")
 require("./easy")
 require("./medium")
 
-var root1 = BuildTree([1, 2, 3, 4, 5, 6, null, null, null, 7, 8]);
-var root2 = BuildTree([1, 3, 2, null, 6, 4, 5, null, null, null, null, 8, 7]);
+var root = BuildTree([3, 1, 5, 0, 2, 4, 6, null, null, null, 3]);
 
-console.log(Medium.flipEquiv(root1, root2));
+var emails = [
+    "test.email+alex@leetcode.com",
+    "test.e.mail+bob.cathy@leetcode.com",
+    "testemail+david@lee.tcode.com"
+]
+
+console.log(numUniqueEmails(emails));

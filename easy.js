@@ -196,3 +196,25 @@ minCostClimbingStairsRecursive = function (cost) {
 
     return minCost;
 };
+
+// 929. Unique Email Addresses
+numUniqueEmails = function (emails) {
+    var ret = [];
+    emails.forEach(e => {
+        var parts = e.split("@");
+        var name = parts[0].replace(/\./g, "");
+
+        var index = name.indexOf("+");
+        if (index > 0) {
+            name = name.substring(0, index);
+        }
+
+        var c = name + "@" + parts[1];
+
+        if (!ret.includes(c)) {
+            ret.push(c);
+        }
+    });
+
+    return ret.length;
+};
