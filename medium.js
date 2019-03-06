@@ -414,5 +414,23 @@ Medium = {
             right *= nums[i];
         }
         return res;
+    },
+
+    // 938. Range Sum of BST
+    rangeSumBST: function (root, L, R) {
+        var sum = 0;
+        var go = function (r) {
+            if (r != null) {
+                if (r.val >= L && r.val <= R) {
+                    sum += r.val;
+                }
+                go(r.left);
+                go(r.right);
+            }
+        }
+
+        go(root);
+
+        return sum;
     }
 }
