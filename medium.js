@@ -432,5 +432,38 @@ Medium = {
         go(root);
 
         return sum;
+    },
+
+    // 1008. Construct Binary Search Tree from Preorder Traversal
+    bstFromPreorder: function (preorder) {
+        var add = function (root, value) {
+            if (root.val == undefined) {
+                root.val = value;
+            }
+            else {
+                if (root.val > value) {
+                    if (root.left != null) {
+                        add(root.left, value);
+                    } else {
+                        root.left = new TreeNode(value);
+                    }
+                } else {
+                    if (root.right != null) {
+                        add(root.right, value);
+                    } else {
+                        root.right = new TreeNode(value);
+                    }
+                }
+            }
+        }
+
+
+        var r = new TreeNode();
+
+        preorder.forEach((e) => {
+            add(r, e);
+        });
+
+        return r;
     }
 }
