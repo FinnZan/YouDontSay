@@ -465,5 +465,45 @@ Medium = {
         });
 
         return r;
+    },
+
+    // 318. Maximum Product of Word Lengths
+    maxProduct: function (words) {
+        var t = [];
+
+        for (var j = 0; j < words.length; j++) {
+            for (var i = 0; i < words[j].length; i++) {
+                var c = words[j].charAt(i);
+                if (t[c] == undefined) {
+                    t[c] = {};
+                }
+                t[c][j] = 1;
+            }
+        };
+
+        var max = 0;
+
+        for (var i = 0; i < words.length; i++) {
+            for (var j = i + 1; j < words.length; j++) {
+                var M = words[i].length;
+                var N = words[j].length;
+                var found = false;
+                for (var k = 0; k < M; k++) {
+                    var c = words[i].charAt(k);
+                    if (t[c][j] != undefined) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    var m = M * N;
+                    if (m > max) {
+                        max = m;
+                    }
+                }
+            }
+        }
+
+        return max;
     }
 }
