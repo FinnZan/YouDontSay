@@ -505,5 +505,13 @@ Medium = {
         }
 
         return max;
+    },
+
+    // 537. Complex Number Multiplication
+    complexNumberMultiply: function (a, b) {
+        var ap = a.replace("i", "").split("+");
+        var bp = b.replace("i", "").split("+");
+
+        return (ap[0] * bp[0] - ap[1] * bp[1]) + "+" + (ap[1] * bp[0] + ap[0] * bp[1]) + "i";
     }
 }
