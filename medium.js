@@ -513,5 +513,22 @@ Medium = {
         var bp = b.replace("i", "").split("+");
 
         return (ap[0] * bp[0] - ap[1] * bp[1]) + "+" + (ap[1] * bp[0] + ap[0] * bp[1]) + "i";
+    },
+
+    // 973. K Closest Points to Origin
+    kClosest: function (points, K) {
+        var dist = [];
+        for (var i = 0; i < points.length; i++) {
+            dist[i] = [i, points[i][0] * points[i][0] + points[i][1] * points[i][1]];
+        }
+
+        dist.sort(function (a, b) { return a[1] - b[1] });
+
+        var ret = [];
+        for (var k = 0; k < K; k++) {
+            ret.push(points[dist[k][0]]);
+        }
+
+        return ret;
     }
 }
