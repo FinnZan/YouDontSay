@@ -537,5 +537,86 @@ Medium = {
             return a - b
         });
         return nums;
+    },
+
+    // 885. Spiral Matrix III
+    spiralMatrixIII: function (R, C, r0, c0) {
+        var total = 0;
+        var ret = [];
+
+        var mat = [R];
+        for (var i = 0; i < R; i++) {
+            mat[i] = [C];
+            for (var j = 0; j < C; j++) {
+                mat[i][j] = 0;
+            }
+        }
+
+        var go = function (r, c, dir) {
+
+            if (total == R * C) {
+                return;
+            }
+
+            if ((r >= 0 && c >= 0 && r < mat.length && c < mat[0].length)) {
+                // console.log(r + ", " + c + ", " + dir + " O ");
+                mat[r][c] = 1;
+                ret[total] = [r, c];
+                total++;
+            } else {
+                // console.log(r + ", " + c + ", " + dir + " X ");
+            }
+
+            var np = fetch(r, c, dir);
+
+            if (np[0] >= 0 && np[1] >= 0 && np[0] < mat.length && np[1] < mat[0].length) {
+                if (mat[np[0]][np[1]] == 1) {
+                    var nnp = fetch(r, c, turn(dir, -1));
+                    go(nnp[0], nnp[1], dir)
+                } else {
+                    go(np[0], np[1], turn(dir, 1))
+                }
+            } else {
+                go(np[0], np[1], turn(dir, 1))
+            }
+        }
+
+        var turn = function (d, c) {
+            var ret = d + c;
+            if (ret >= 0) {
+                ret = ret % 4;
+            } else {
+                ret = 4 + ret;
+            }
+
+            return ret;
+        }
+
+        var fetch = function (r, c, dir) {
+            var nr, nc;
+
+            if (dir == 0) {
+                nc = c + 1;
+                nr = r;
+            } else if (dir == 1) {
+                nc = c;
+                nr = r + 1;
+            } else if (dir == 2) {
+                nc = c - 1;
+                nr = r;
+            } else if (dir == 3) {
+                nc = c;
+                nr = r - 1;
+            } else {
+
+            }
+
+            return [nr, nc];
+        }
+
+        go(r0, c0, 0);
+
+        return ret;
     }
+
 }
