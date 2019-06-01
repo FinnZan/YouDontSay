@@ -617,6 +617,31 @@ Medium = {
         go(r0, c0, 0);
 
         return ret;
-    }
+    },
 
+    // 1038. Binary Search Tree to Greater Sum Tree
+    bstToGst: function (root) {
+        var go = function (r, grt) {
+            if(r != null){
+                //console.log("Enter [" + r.val +"] + ["+ grt + "]");
+                var rv =  go(r.right, grt);
+                
+                var ov = r.val;
+                var nv = ov + rv + grt;
+                //console.log("[" + r.val+ "] to ["+ nv + "]");
+                r.val = nv;
+                grt += rv;
+                var lv = go(r.left, grt + ov);               
+                                                
+                var ret = ov + rv + lv;
+                //console.log("return [" + ret + "]");
+                return ret; 
+            }else{
+                return 0;
+            }
+        }
+        go(root, 0);
+
+        return root;
+    }
 }
