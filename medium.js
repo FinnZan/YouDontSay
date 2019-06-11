@@ -622,26 +622,91 @@ Medium = {
     // 1038. Binary Search Tree to Greater Sum Tree
     bstToGst: function (root) {
         var go = function (r, grt) {
-            if(r != null){
+            if (r != null) {
                 //console.log("Enter [" + r.val +"] + ["+ grt + "]");
-                var rv =  go(r.right, grt);
-                
+                var rv = go(r.right, grt);
+
                 var ov = r.val;
                 var nv = ov + rv + grt;
                 //console.log("[" + r.val+ "] to ["+ nv + "]");
                 r.val = nv;
                 grt += rv;
-                var lv = go(r.left, grt + ov);               
-                                                
+                var lv = go(r.left, grt + ov);
+
                 var ret = ov + rv + lv;
                 //console.log("return [" + ret + "]");
-                return ret; 
-            }else{
+                return ret;
+            } else {
                 return 0;
             }
         }
         go(root, 0);
 
         return root;
+    },
+
+    // 986. Interval List Intersections
+    intervalIntersection: function (A, B) {
+        var steps = [];
+
+        A.forEach(element => {
+            steps.push(element[0]);
+            steps.push(element[1]);
+        });
+
+        B.forEach(element => {
+            steps.push(element[0]);
+            steps.push(element[1]);
+        });
+
+        steps.sort(function (a, b) { return a - b });
+
+        var intercept = function (x, arr) {
+            for (var i = 0; i < arr.length; i++) {
+                if (x == arr[i][0]) {
+                    return 0;
+                }
+
+                if (x == arr[i][1]) {
+                    arr.shift();
+                    return 2;
+                }
+
+                if (x >= arr[i][0] && x <= arr[i][1]) {
+                    return 1;
+                }
+            }
+            return -1;
+        };
+
+        var cA = -1;
+        var cB = -1;
+        var index = 0;
+        var ret = [];
+
+        var last = -1;
+
+        for (var i = 0; i < steps.length; i++) {
+            if (steps[i] != last) {
+                //console.log("Run: " + steps[i]);
+                var nA = intercept(steps[i], A);
+                var nB = intercept(steps[i], B);
+
+                if ((nA == 0 && nB == 0) || (nA == 0 && nB > 0) || (nA > 0 && nB == 0)) {
+                    //console.log("[" + i);
+                    ret[index] = [];
+                    ret[index][0] = steps[i];
+                }
+
+                if ((nA == 2 && nB != -1) || (nA != -1 && nB == 2)) {
+                    ret[index][1] = steps[i];
+                    index++;
+                    //console.log(i + "]");
+                }
+            }
+            last = steps[i];
+        }
+
+        return ret;
     }
 }
