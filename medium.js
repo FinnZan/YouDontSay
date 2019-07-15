@@ -708,5 +708,31 @@ Medium = {
         }
 
         return ret;
+    },
+
+    // 1079. Letter Tile Possibilities
+    numTilePossibilities: function (tiles) {
+        var ret = {};
+        var count = 0;
+
+        var go = function (arr, cur) {            
+            if (arr.length > 0) {
+                for (var i = 0; i < arr.length; i++) {
+                    const cloneArr = [...arr];
+                    var c = (cur + arr[i]);
+                    if (ret[c] == undefined) {                        
+                        ret[c] = 1;    
+                        count++;                    
+                        console.log(c);
+                    }
+                    cloneArr.splice(i,1)
+                    go(cloneArr, c);
+                }
+            }
+        }
+
+        go(tiles, "");
+
+        return count;
     }
 }
