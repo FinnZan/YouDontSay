@@ -783,5 +783,36 @@ Medium = {
         }
 
         return ret;
+    },
+
+    // 1302. Deepest Leaves Sum
+    deepestLeavesSum: function (root) {
+        var sum = {};
+        var max = 0;
+
+        var go = function (r, depth) {
+            if (r == null) {
+                return;
+            }
+
+            if (depth >= max) {
+                max = depth;
+
+                if (r.left == null && r.right == null) {
+                    if (sum[depth] == undefined) {
+                        sum[depth] = r.val;
+                    } else {
+                        sum[depth] += r.val;
+                    }
+                }
+            }
+
+            go(r.left, depth + 1);
+            go(r.right, depth + 1);
+        }
+
+        go(root, 0);
+
+        return sum[max];        
     }
 }
