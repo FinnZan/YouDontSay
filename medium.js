@@ -647,6 +647,24 @@ Medium = {
 
     // 986. Interval List Intersections
     intervalIntersection: function (A, B) {
+        var k = 0; j = 0;
+
+        while (k < A.length || j < B.length) {
+            if (k < A.length) {
+                var vA = A[k];
+            } else {
+                var vA = -1;
+            }
+
+            if (j < B.length) {
+                var vB = B[j];
+            } else {
+                var vB = -1;
+            }
+
+
+        }
+
         var steps = [];
 
         A.forEach(element => {
@@ -715,17 +733,17 @@ Medium = {
         var ret = {};
         var count = 0;
 
-        var go = function (arr, cur) {            
+        var go = function (arr, cur) {
             if (arr.length > 0) {
                 for (var i = 0; i < arr.length; i++) {
                     const cloneArr = [...arr];
                     var c = (cur + arr[i]);
-                    if (ret[c] == undefined) {                        
-                        ret[c] = 1;    
-                        count++;                    
-                        console.log(c);
+                    if (ret[c] == undefined) {
+                        ret[c] = 1;
+                        count++;
+                        //console.log(c);
                     }
-                    cloneArr.splice(i,1)
+                    cloneArr.splice(i, 1)
                     go(cloneArr, c);
                 }
             }
@@ -734,5 +752,36 @@ Medium = {
         go(tiles, "");
 
         return count;
+    },
+
+    // 1282. Group the People Given the Group Size They Belong To
+    groupThePeople: function (groupSizes) {
+        var groups = [];
+        var ret = [];
+
+        for (var i = 0; i < groupSizes.length; i++) {
+            if (groupSizes[i] == 1) {
+                ret.push([i]);
+            } else {
+                var found = false;
+                for (var j = 0; j < groups.length; j++) {
+                    if (groups[j].expect == groupSizes[i]) {
+                        groups[j].IDs.push(i);
+                        if (groups[j].IDs.length == groups[j].expect) {
+                            ret.push(groups[j].IDs);
+                            groups.splice(j, 1);
+                        }
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    groups.push({ expect: groupSizes[i], IDs: [i] });
+                }
+            }
+        }
+
+        return ret;
     }
 }
