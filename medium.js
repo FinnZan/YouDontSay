@@ -813,6 +813,50 @@ Medium = {
 
         go(root, 0);
 
-        return sum[max];        
+        return sum[max];
+    },
+
+    // 12. Integer to Roman
+    intToRoman: function (num) {
+        var result = "";
+
+        var numSet = ["I", "V", "X", "L", "C", "D", "M", "?", "?"];
+
+        var d = num;
+        var j = 0;
+
+        while (d > 0) {
+
+            var d1 = d % 10;
+            var digit = "";
+            var one = numSet[j];
+            var five = numSet[j+1];
+            var ten = numSet[j+2];
+
+            if (d1 == 4) {
+                digit = one + five;
+            } else if (d1 == 5) {
+                digit = five;
+            } else if (d1 == 9) {
+                digit = one + ten;
+            } else {
+                if (d1 < 5) {
+                    for (var i = 0; i < d1; i++) {
+                        digit += one;
+                    }
+                } else {
+                    digit = five;
+                    for (var i = 0; i < d1 - 5; i++) {
+                        digit += one;
+                    }
+                }
+            }
+
+            d = ~~(d / 10);
+            j+=2;
+            result = digit + result;
+        }
+
+        return result;
     }
 }
