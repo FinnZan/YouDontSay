@@ -830,8 +830,8 @@ Medium = {
             var d1 = d % 10;
             var digit = "";
             var one = numSet[j];
-            var five = numSet[j+1];
-            var ten = numSet[j+2];
+            var five = numSet[j + 1];
+            var ten = numSet[j + 2];
 
             if (d1 == 4) {
                 digit = one + five;
@@ -853,10 +853,57 @@ Medium = {
             }
 
             d = ~~(d / 10);
-            j+=2;
+            j += 2;
             result = digit + result;
         }
 
         return result;
+    },
+
+    // 39. Combination Sum
+    combinationSum: function (candidates, target) {
+        var ret = [];
+        var c = 0;
+
+        function TakeNext(sum, set) {
+            for (var i = 0; i < candidates.length; i++) {                
+                set.push(candidates[i]);
+                var newSum = sum + candidates[i]; 
+                if (newSum == target) {
+                    var newSet = set.slice(0);
+                    newSet.sort();
+                    if (!Contains(newSet)) {
+                        ret[c] = newSet;
+                        c++;
+                    }
+                } else if (newSum < target) {
+                    TakeNext(newSum, set);
+                }
+                set.pop();
+            }
+        }
+
+        function Contains(b) {
+            for (var j = 0; j < ret.length; j++) {
+                if (ret[j].length == b.length) {
+                    var result = true;
+                    for (var i = 0; i < ret[j].length; i++) {
+                        if (ret[j][i] != b[i]) {
+                            result = false;
+                            break;
+                        }
+                    }
+                    if (result) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        TakeNext(0, []);
+
+        return ret;
     }
 }
