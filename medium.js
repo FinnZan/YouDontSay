@@ -905,5 +905,66 @@ Medium = {
         TakeNext(0, []);
 
         return ret;
+    }, 
+
+    // 59. Spiral Matrix II
+    generateMatrix : function(n){
+        var ret = [];
+
+        for(var i =0;i<n;i++){
+            ret[i] = [];
+        }
+
+        var count = 1;
+        
+        function Go(x,y, dir){            
+            ret[y][x] = count;
+
+            if(count == n*n){
+                return;
+            }
+
+            if(dir == 0){
+                if(x +1 >= n || ret[y][x+1] != undefined){
+                    Go(x, y, 1)
+                }else{
+                    count++;
+                    Go(x+1, y, 0);
+
+                }                
+            }
+
+            if(dir == 1){
+                if(y +1 >= n || ret[y+1][x] != undefined){
+                    Go(x, y, 2)
+                }else{
+                    count++;
+                    Go(x, y+1, 1);
+                }                
+            }
+
+            if(dir == 2){
+                if(x-1 < 0 || ret[y][x-1] != undefined){
+                    Go(x, y, 3)
+                }else{
+                    count++;
+                    Go(x-1, y, 2);
+                }                
+            }
+
+            if(dir == 3){
+                if(y -1 < 0 || ret[y-1][x] != undefined){
+                    Go(x, y, 0)
+                }else{
+                    count++;
+                    Go(x, y-1, 3);
+                }                
+            }
+
+        }
+
+        Go(0,0,0);
+
+        return ret;     
     }
 }
