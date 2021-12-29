@@ -965,6 +965,27 @@ Medium = {
 
         Go(0,0,0);
 
-        return ret;     
+        return ret;
+    },
+
+    lengthOfLongestSubstring: function (s) {
+        var max = 0;
+        var table = {};
+        var cut = 0;
+
+        for (var i = 0; i < s.length && (s.length - cut) > max; i++) {
+            var found = table[s[i]];
+            if (found == undefined || found < cut) {
+                var len = (i - cut) + 1;
+                if(len > max){
+                    max = len;
+                }         
+            } else {
+                cut = found + 1;
+            }
+            table[s[i]] = i;
+        }
+
+        return max;
     }
 }
