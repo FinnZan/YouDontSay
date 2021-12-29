@@ -866,9 +866,9 @@ Medium = {
         var c = 0;
 
         function TakeNext(sum, set) {
-            for (var i = 0; i < candidates.length; i++) {                
+            for (var i = 0; i < candidates.length; i++) {
                 set.push(candidates[i]);
-                var newSum = sum + candidates[i]; 
+                var newSum = sum + candidates[i];
                 if (newSum == target) {
                     var newSet = set.slice(0);
                     newSet.sort();
@@ -905,69 +905,70 @@ Medium = {
         TakeNext(0, []);
 
         return ret;
-    }, 
+    },
 
     // 59. Spiral Matrix II
-    generateMatrix : function(n){
+    generateMatrix: function (n) {
         var ret = [];
 
-        for(var i =0;i<n;i++){
+        for (var i = 0; i < n; i++) {
             ret[i] = [];
         }
 
         var count = 1;
-        
-        function Go(x,y, dir){            
+
+        function Go(x, y, dir) {
             ret[y][x] = count;
 
-            if(count == n*n){
+            if (count == n * n) {
                 return;
             }
 
-            if(dir == 0){
-                if(x +1 >= n || ret[y][x+1] != undefined){
+            if (dir == 0) {
+                if (x + 1 >= n || ret[y][x + 1] != undefined) {
                     Go(x, y, 1)
-                }else{
+                } else {
                     count++;
-                    Go(x+1, y, 0);
+                    Go(x + 1, y, 0);
 
-                }                
+                }
             }
 
-            if(dir == 1){
-                if(y +1 >= n || ret[y+1][x] != undefined){
+            if (dir == 1) {
+                if (y + 1 >= n || ret[y + 1][x] != undefined) {
                     Go(x, y, 2)
-                }else{
+                } else {
                     count++;
-                    Go(x, y+1, 1);
-                }                
+                    Go(x, y + 1, 1);
+                }
             }
 
-            if(dir == 2){
-                if(x-1 < 0 || ret[y][x-1] != undefined){
+            if (dir == 2) {
+                if (x - 1 < 0 || ret[y][x - 1] != undefined) {
                     Go(x, y, 3)
-                }else{
+                } else {
                     count++;
-                    Go(x-1, y, 2);
-                }                
+                    Go(x - 1, y, 2);
+                }
             }
 
-            if(dir == 3){
-                if(y -1 < 0 || ret[y-1][x] != undefined){
+            if (dir == 3) {
+                if (y - 1 < 0 || ret[y - 1][x] != undefined) {
                     Go(x, y, 0)
-                }else{
+                } else {
                     count++;
-                    Go(x, y-1, 3);
-                }                
+                    Go(x, y - 1, 3);
+                }
             }
 
         }
 
-        Go(0,0,0);
+        Go(0, 0, 0);
 
         return ret;
     },
 
+    // 3. Longest Substring Without Repeating Characters
     lengthOfLongestSubstring: function (s) {
         var max = 0;
         var table = {};
@@ -977,9 +978,9 @@ Medium = {
             var found = table[s[i]];
             if (found == undefined || found < cut) {
                 var len = (i - cut) + 1;
-                if(len > max){
+                if (len > max) {
                     max = len;
-                }         
+                }
             } else {
                 cut = found + 1;
             }
