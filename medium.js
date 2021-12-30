@@ -988,5 +988,31 @@ Medium = {
         }
 
         return max;
+    },
+
+    // 200. Number of Islands
+    numIslands: function (grid) {
+        num = 2;
+
+        var Expand = function (x, y, c) {
+            if (y >= 0 && y < grid.length && x >= 0 && x < grid[0].length
+                && grid[y][x] == 1) {
+                grid[y][x] = c;
+                Expand(x - 1, y, c);
+                Expand(x + 1, y, c)
+                Expand(x, y - 1, c)
+                Expand(x, y + 1, c)
+            }
+        }
+
+        for (var y = 0; y < grid.length; y++)
+            for (var x = 0; x < grid[0].length; x++) {
+                if (grid[y][x] == 1) {
+                    Expand(x, y, num);
+                    num++;
+                }
+            }
+
+        return num - 2;
     }
 }
