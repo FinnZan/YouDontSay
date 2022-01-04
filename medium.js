@@ -1035,5 +1035,31 @@ Medium = {
         Visit(0);
 
         return count == rooms.length;
+    },
+
+    // 264. Ugly Number II
+    nthUglyNumber: function (n) {
+        if (n == 1)
+            return 1;
+
+        var a = [];
+
+        a.push(1);
+
+        var i = 0, j = 0, k = 0, m;
+
+        for (var l = 1; l < n; l++) {
+            m = Math.min(2 * a[i], Math.min(3 * a[j], 5 * a[k]));
+            a.push(m);
+
+            if (m == 2 * a[i])
+                i++;
+            if (m == 3 * a[j])
+                j++;
+            if (m == 5 * a[k])
+                k++;
+        }
+
+        return a[n - 1];
     }
 }
