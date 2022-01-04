@@ -1014,5 +1014,26 @@ Medium = {
             }
 
         return num - 2;
+    },
+
+    // 841. Keys and Rooms
+    canVisitAllRooms: function (rooms) {
+        var visited = [];
+        var count = 0;
+
+        var Visit = function (r) {
+            visited[r] = true;
+            count++;
+
+            for (var i = 0; i < rooms[r].length; i++) {
+                if (visited[rooms[r][i]] == undefined) {
+                    Visit(rooms[r][i]);
+                }
+            }
+        }
+
+        Visit(0);
+
+        return count == rooms.length;
     }
 }
