@@ -1061,5 +1061,36 @@ Medium = {
         }
 
         return a[n - 1];
+    },
+
+    // 71. Simplify Path
+    simplifyPath: function (path) {
+        var toks = path.split("/").filter(function (x) {
+            return x.length > 0;
+        });
+
+        var folders = [];
+
+        for (var i = 0; i < toks.length; i++) {
+            if (toks[i] == "..") {
+                folders.pop();
+            } else if (toks[i] == ".") {
+            }
+            else {
+                folders.push(toks[i]);
+            }
+        }
+
+        var result = "/";
+
+        for (var i = 0; i < folders.length; i++) {
+            result += (folders[i] + "/");
+        }
+
+        if (result.length > 1) {
+            return result.slice(0, -1);
+        }
+
+        return result;
     }
 }
