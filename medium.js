@@ -1092,5 +1092,40 @@ Medium = {
         }
 
         return result;
+    },
+
+    // 33. Search in Rotated Sorted Array
+    search: function (nums, target) {
+
+        var ret = -1;
+
+        var Split = function (start, end) {
+
+            if (nums[start] == target) {
+                ret = start;
+                return;
+            }
+
+            if (nums[end] == target) {
+                ret = end;
+                return;
+            }
+
+            if (end - start > 1 &&
+                (nums[end] < nums[start] || (nums[start] < target && nums[end] > target))) {
+
+                var mid = (((end + start) / 2) + 0.5) << 0;
+
+                Split(start + 1, mid);
+
+                Split(mid + 1, end - 1);
+            }
+
+            return;
+        }
+
+        Split(0, nums.length - 1);
+
+        return ret;
     }
 }
