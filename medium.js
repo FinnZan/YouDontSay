@@ -1094,6 +1094,45 @@ Medium = {
         return result;
     },
 
+    // 91. Decode Ways
+    numDecodings: function (s) {
+        var map = {};
+
+        var NextCode = function (index) {
+
+            if (map[index] != undefined) {
+                return map[index];
+            }
+
+            var ret = 0;
+
+            if (index >= s.length) {
+                ret = 1
+            }
+            else if (s[index] == '0') {
+                ret = 0
+            }
+            else if (index == s.length - 1) {
+                ret = 1
+            }
+            else {
+                var num = s[index] + s[index + 1];
+
+                if (num > 26) {
+                    ret = NextCode(index + 1);
+                }
+                else {
+                    ret = NextCode(index + 1) + NextCode(index + 2);
+                }
+            }
+
+            map[index] = ret;
+            return ret;
+        };
+
+        return NextCode(0);
+    },
+
     // 33. Search in Rotated Sorted Array
     search: function (nums, target) {
 
