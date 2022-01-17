@@ -1166,5 +1166,35 @@ Medium = {
         Split(0, nums.length - 1);
 
         return ret;
+    },
+
+    // 1376. Time Needed to Inform All Employees
+    numOfMinutes: function (n, headID, manager, informTime) {
+        var map = {};
+
+        var FindHead = function (e) {
+            if (map[e] != undefined) {
+                return map[e];
+            }
+
+            if (manager[e] == -1) {
+                return 0;
+            } else {
+                var ret = informTime[manager[e]] + FindHead(manager[e]);
+                map[e] = ret;
+                return ret;
+            }
+        }
+
+        var max = 0;
+
+        for (var i = 0; i < n; i++) {
+            var t = FindHead(i);
+            if (t > max) {
+                max = t;
+            }
+        }
+
+        return max;
     }
 }
