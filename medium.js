@@ -1196,5 +1196,50 @@ Medium = {
         }
 
         return max;
+    },
+
+    // 6. Zigzag Conversion
+    convert: function (s, numRows) {
+        var index = 0;
+        var x = 0;
+        var y = 0;
+        var dir = 1;
+
+        var map = [];
+        for (var i = 0; i < numRows; i++) {
+            map[i] = "";
+        }
+
+        while (index < s.length) {
+            map[y] += s[index];
+
+            if (y == numRows - 1) {
+                dir = -1;
+            } else if (y == 0) {
+                dir = 1;
+            } else {
+
+            }
+
+            if (dir == -1) {
+                x += 1;
+            }
+
+            y += dir;
+
+            if (y < 0) {
+                y = 0;
+            }
+
+            index++;
+        }
+
+        var ret = "";
+
+        for (var i = 0; i < numRows; i++) {
+            ret += map[i];
+        }
+
+        return ret;
     }
 }
