@@ -1307,4 +1307,21 @@ Medium = {
 
         return dfs(root, -9007199254740991, 9007199254740991);
     },
+
+    // 11. Container With Most Water
+    maxArea: function (height) {
+        var max = 0;
+        for (var i = 0; i < height.length; i++) {
+            var atLeast = Math.floor(max / height[i]);
+
+            for (var j = i + atLeast + 1; j < height.length; j++) {
+                var a = Math.min(height[i], height[j]) * (j - i);
+                if (a > max) {
+                    max = a;
+                }
+            }
+        }
+
+        return max;
+    },
 }
