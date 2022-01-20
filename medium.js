@@ -1094,6 +1094,76 @@ Medium = {
         return result;
     },
 
+    // 310. Minimum Height Trees
+    findMinHeightTrees: function (n, edges) {
+        var depth = 1;
+        var result = [];
+
+        var NextNode = function (r, pEdges, d) {
+
+            depth = Math.max(depth, d);
+
+            for (var i = 0; i < pEdges.length; i++) {
+
+                if (pEdges[i][0] == r) {
+                    var edges2 = pEdges.slice(0);
+                    edges2.splice(i, 1);
+                    NextNode(pEdges[i][1], edges2, d + 1);
+                }
+
+                if (pEdges[i][1] == r) {
+                    var edges2 = pEdges.slice(0);
+                    edges2.splice(i, 1);
+                    NextNode(pEdges[i][0], edges2, d + 1);
+                }
+            }
+        }
+
+        var min = undefined;
+        var ret = [];
+
+        for (var i = 0; i < n; i++) {
+            depth = 1;
+            NextNode(i, edges, 1);
+
+            result[i] = depth;
+
+            if (min == undefined || depth < min) {
+                ret = [];
+                ret.push(i);
+                min = depth;
+            } else if (depth == min) {
+                ret.push(i);
+            }
+        }
+
+        return ret;
+    },
+
+    // 767. Reorganize String
+    reorganizeString: function (s) {
+
+
+    },
+
+    // 29. Divide Two Integers
+    divide: function (dividend, divisor) {
+        var s = Math.abs(divisor);
+        var d = Math.abs(dividend);
+
+        var q = 0;
+        while (d >= s) {
+            d = d - s;
+            q++;
+        }
+
+        if (dividend * divisor > 0) {
+            return q;
+        } else {
+            return -q;
+        }
+    },
+
     // 91. Decode Ways
     numDecodings: function (s) {
         var map = {};
@@ -1135,7 +1205,6 @@ Medium = {
 
     // 33. Search in Rotated Sorted Array
     search: function (nums, target) {
-
         var ret = -1;
 
         var Split = function (start, end) {
@@ -1199,45 +1268,25 @@ Medium = {
     },
 
     // 6. Zigzag Conversion
-    convert: function (s, numRows) {
-        var index = 0;
-        var x = 0;
-        var y = 0;
-        var dir = 1;
-
-        var map = [];
-        for (var i = 0; i < numRows; i++) {
-            map[i] = "";
-        }
-
-        while (index < s.length) {
-            map[y] += s[index];
-
-            if (y == numRows - 1) {
-                dir = -1;
-            } else if (y == 0) {
-                dir = 1;
-            } else {
-
-            }
-
-            if (dir == -1) {
-                x += 1;
-            }
-
-            y += dir;
-
-            if (y < 0) {
-                y = 0;
-            }
-
-            index++;
+    convert: function (s, numRows) {     
+        if(numRows == 1){
+            return s;
         }
 
         var ret = "";
 
-        for (var i = 0; i < numRows; i++) {
-            ret += map[i];
+        for (var shift = 0; shift < numRows; shift++) {
+            var index = shift;
+            while (index < s.length) {
+                ret += s[index];
+                if (shift != 0 && shift != numRows - 1) {
+                    var m = index + (numRows - shift - 1) * 2;
+                    if (m < s.length) {
+                        ret += s[m];
+                    }
+                }
+                index += (numRows - 1 + (numRows - 1));
+            }
         }
 
         return ret;
