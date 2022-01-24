@@ -1324,4 +1324,54 @@ Medium = {
 
         return max;
     },
+
+    // 809. Expressive Words
+    expressiveWords: function (s, words) {
+
+        var Compress = function (ss) {
+            if (ss.length <= 0) {
+                return null;
+            }
+            var p = [];
+            var c = 0;
+            p[c] = { char: ss[0], count: 1 };
+
+            for (let i = 1; i < ss.length; i++) {
+                if (ss[i] == ss[i - 1]) {
+                    p[c].count++;
+                } else {
+                    c++;
+                    p[c] = { char: ss[i], count: 1 };
+                }
+            }
+
+            return p;
+        }
+
+        var sc = Compress(s);
+
+        var ret = 0;
+
+        for (var j = 0; j < words.length; j++) {
+            var cc = Compress(words[j]);
+
+            if (cc.length == sc.length) {
+
+                var match = true;
+
+                for (let k = 0; k < cc.length; k++) {
+                    if (cc[k].char != sc[k].char || cc[k].count > sc[k].count || (cc[k].count != sc[k].count && sc[k].count < 3)) {
+                        match = false;
+                        break;
+                    }
+                }
+
+                if (match) {
+                    ret++;
+                }
+            }
+        }
+
+        return ret;
+    },
 }
