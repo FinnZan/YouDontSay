@@ -1268,8 +1268,8 @@ Medium = {
     },
 
     // 6. Zigzag Conversion
-    convert: function (s, numRows) {     
-        if(numRows == 1){
+    convert: function (s, numRows) {
+        if (numRows == 1) {
             return s;
         }
 
@@ -1292,7 +1292,7 @@ Medium = {
         return ret;
     },
 
-    
+
     // 98. Validate Binary Search Tree
     isValidBST: function (root) {
         var dfs = function (root, min, max) {
