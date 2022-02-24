@@ -1374,4 +1374,76 @@ Medium = {
 
         return ret;
     },
+
+    // 934. Shortest Bridge
+    shortestBridge: function (grid) {
+        var M = grid[0].length;
+        var N = grid.length;
+
+        var dirs = [[1, 0], [0, 1], [-1, 0], [0, -1]];
+
+        var visited = [];
+        for (var i = 0; i < N; i++) {
+            visited[i] = [];
+        }
+
+        var Explore = (p) => {
+            visited[p[1]][p[0]] = 1;
+            for (let d of dirs) {
+                var np = [p[0] + d[0], p[1] + d[1]];
+                if (np[0] >= 0 && np[0] < M && np[1] >= 0 && np[1] < N) {
+                    if (grid[np[1]][np[0]] === 1 && visited[np[1]][np[0]] != 1) {
+                        Explore(np);
+                    }
+                }
+            }
+        };
+
+        var min = 99999999999999999;
+
+        var Sail = (p, dist) => {
+            if (dist > min) {
+                return;
+            }
+
+            for (let d of dirs) {
+                var np = [p[0] + d[0], p[1] + d[1]];
+                if (np[0] >= 0 && np[0] < M && np[1] >= 0 && np[1] < N) {
+
+                    if (visited[np[1]][np[0]] == 1) {
+
+                    } else if (grid[np[1]][np[0]] == 0) {
+                        if (visited[np[1]][np[0]] == undefined || visited[np[1]][np[0]] > (1 + dist + 1)) {
+                            visited[np[1]][np[0]] = 1 + dist + 1;
+                            Sail(np, dist + 1);
+                        }
+                    } else {
+                        if (dist < min) {
+                            min = dist;
+                        }
+                    }
+                }
+            }
+        }
+
+        let MarkFirstIsland = () => {
+            for (var x = 0; x < M; x++)
+                for (var y = 0; y < N; y++) {
+                    if (grid[y][x] == 1) {
+                        Explore([x, y]);
+                        return;
+                    }
+                }
+        };
+
+        MarkFirstIsland();       
+
+        for (var i = 0; i < M; i++)
+            for (var j = 0; j < N; j++) {
+                if (visited[j][i] == 1) {
+                    Sail([i, j], 0);
+                }
+            }
+        return min;
+    }
 }
