@@ -1398,6 +1398,28 @@ Medium = {
 
         return wall.length - max;
     },
+
+    // 213. House Robber II
+    rob: function (nums) {
+        var n = nums.length;
+        var dp = [];
+        for (let i = 0; i < n + 1; i++) {
+            dp[i] = [0, 0];
+        }
+        dp[1][0] = nums[0];
+        for (var i = 2; i <= n; i++) {
+            for (var j = 0; j <= 1; j++) {
+                if (i == n && j == 0) {
+                    // we are not robbing the last house. 
+                    // We are interested in the profit so far, so update the current state with the previous state value.
+                    dp[i][j] = dp[i - 1][j];
+                } else {
+                    dp[i][j] = Math.max(nums[i - 1] + dp[i - 2][j], dp[i - 1][j]);
+                }
+            }
+        }
+        return Math.max(dp[n][0], dp[n][1]); // Max profit by robbing or not robbing the last house.
+    },
     // 934. Shortest Bridge
     shortestBridge: function (grid) {
         var M = grid[0].length;
