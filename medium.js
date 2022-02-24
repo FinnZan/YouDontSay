@@ -1375,6 +1375,29 @@ Medium = {
         return ret;
     },
 
+    // 554. Brick Wall
+    leastBricks: function (wall) {
+        var gaps = [];
+        var max = 0;
+
+        for (let i = 0; i < wall.length; i++) {
+            const w = wall[i];
+            let l = 0;
+
+            for (let j = 0; j < w.length - 1; j++) {
+                l += w[j];
+                if (gaps[l] == undefined) {
+                    gaps[l] = 0;
+                }
+                gaps[l]++;
+                if (gaps[l] > max) {
+                    max = gaps[l];
+                }
+            }
+        }
+
+        return wall.length - max;
+    },
     // 934. Shortest Bridge
     shortestBridge: function (grid) {
         var M = grid[0].length;
